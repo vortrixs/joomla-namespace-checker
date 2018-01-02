@@ -23,7 +23,7 @@ class Checker
 	private $messages = [];
 
 	/**
-	 * [__construct description]
+	 * Prepares the internal properties
 	 *
 	 * @param   array   $excludePaths   List of paths to exclude
 	 * @param   array   $classmap       A map of classes to be replaced and the replacements
@@ -34,6 +34,16 @@ class Checker
 		$this->classmap      = $classmap;
 	}
 
+	/**
+	 * Filters the provided folder and then scans all the files found for errors
+	 *
+	 * @param   string   $folder   The folder to scan
+	 *
+	 * @throws   Error   If any errors have been found during the scan
+	 *                   we throw the complete message stack back to the main script
+	 *
+	 * @return   void
+	 */
 	public function scan(string $folder)
 	{
 		$files = $this->filterPaths(
@@ -62,9 +72,8 @@ class Checker
 	{
 		$directory = new RecursiveDirectoryIterator($path, FilesystemIterator::SKIP_DOTS);
 		$iterator  = new RecursiveIteratorIterator($directory);
-		$regex     = new RegexIterator($iterator, '/^.+\.php$/i', RecursiveRegexIterator::GET_MATCH);
 
-		return $regex;
+		return new RegexIterator($iterator, '/^.+\.php$/i', RecursiveRegexIterator::GET_MATCH);
 	}
 
 	/**
@@ -112,18 +121,16 @@ class Checker
 
 		foreach ($files as $file)
 		{
-			$handler = file_get_contents($file);
-
-			$errors = $this->scanFile($handler);
-
-			usort($errors, [$this, 'sortErrorsByLine']);
-
 			if ($i % 65 == 0)
 			{
 				echo PHP_EOL;
 			}
 
 			$i++;
+
+			$handler = file_get_contents($file);
+
+			$errors = $this->scanFile($handler);
 
 			if (empty($errors))
 			{
@@ -182,6 +189,8 @@ class Checker
 	 */
 	private function buildMessages(string $file, array $errors)
 	{
+		usort($errors, [$this, 'sortErrorsByLine']);
+
 		$seperator = str_repeat('-', 85);
 
 		$msg  = "FILE: \033[33m{$file}\033[0m" . PHP_EOL;
