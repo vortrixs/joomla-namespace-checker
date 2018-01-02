@@ -34,5 +34,4 @@ The exclusion is very basic so you might have to tweak the paths a bit, this als
 
 e.g. if you pass `--exclude=google`, it will filter out anything that has `google` in it's path or filename.
 
-So passing `/google` will filter out any directories/files starting with `google`.
-And passing `/google/` will only filter out the `google` directory.
+To reliably filter out a whole directory wrap it in `/ /` and for single files use `filename.ext`.
