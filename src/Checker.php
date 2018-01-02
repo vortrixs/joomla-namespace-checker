@@ -30,8 +30,8 @@ class Checker
 	 */
 	public function __construct(array $excludePaths, array $classmap)
 	{
-		$this->excludePaths = $excludePaths;
-		$this->classmap     = $classmap;
+		$this->excludedPaths = $excludePaths;
+		$this->classmap      = $classmap;
 	}
 
 	public function scan(string $folder)
