@@ -3,20 +3,36 @@ For migrating to Joomla 3.8.x
 
 This script scans a directory recursively for PHP files containing calls to the old classes (e.g. JFactory).
 
-The paths are filtered using the `$paths` array (line 12).
-Every path that contains any value from the array is removed from the scan.
-
 ## Usage
 To run the script, download it and execute it using php
 ```
-php joomlaNamespaceChecker.php path/to/your/project
+$ php joomlaNamespaceChecker.phar path/to/your/project
 ```
 
 If any calls are found you will get the following output:
 ```
-Class JFilterInput was found in somepath/somefile.php:lineNumber. Use Joomla\CMS\Filter\InputFilter instead.
-
-Class JFilterInput was found in somepath/somefile.php:lineNumber. Use Joomla\CMS\Filter\InputFilter instead.
-
-Class JFactory was found in somepath/somefile.php:lineNumber. Use Joomla\CMS\Factory instead.
+FILE: path/to/your/project/someFile.php
+-------------------------------------------------------------------------------------
+Line: 12 | Class found: JTable        | Replace with: Joomla\CMS\Table\Table
+Line: 21 | Class found: JPlugin       | Replace with: Joomla\CMS\Plugin\CMSPlugin
+Line: 47 | Class found: JPluginHelper | Replace with: Joomla\CMS\Plugin\PluginHelper
+Line: 56 | Class found: JFactory      | Replace with: Joomla\CMS\Factory
+Line: 75 | Class found: JPluginHelper | Replace with: Joomla\CMS\Plugin\PluginHelper
+Line: 84 | Class found: JFactory      | Replace with: Joomla\CMS\Factory
+-------------------------------------------------------------------------------------
 ```
+
+### Excluding paths & files
+
+To exclude a path or a file just pass the `--exclude` option
+
+```
+$ php joomlaNamespaceChecker.phar --exclude=/somepath/,somefile.php,some/other/path/ path/to/your/project
+```
+
+The exclusion is very basic so you might have to tweak the paths a bit, this also means wildcards like * are *not* supported.
+
+e.g. if you pass `--exclude=google`, it will filter out anything that has `google` in it's path or filename.
+
+So passing `/google` will filter out any directories/files starting with `google`.
+And passing `/google/` will only filter out the `google` directory.
