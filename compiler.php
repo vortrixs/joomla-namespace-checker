@@ -12,12 +12,12 @@ $phar->setSignatureAlgorithm(Phar::SHA1);
 
 $phar->startBuffering();
 
-$phar->addFile('source/index.php');
-$phar->addFile('source/classmap.php');
-$phar->addFile('source/Checker.php');
+$phar->addFile('src/index.php');
+$phar->addFile('src/classmap.php');
+$phar->addFile('src/Checker.php');
 
 $phar->setStub(
-	$phar->createDefaultStub('source/index.php', 'source/index.php')
+	$phar->createDefaultStub('src/index.php', 'src/index.php')
 );
 
 $phar->stopBuffering();
