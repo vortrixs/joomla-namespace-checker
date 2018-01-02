@@ -24,7 +24,7 @@ Line: 84 | Class found: JFactory      | Replace with: Joomla\CMS\Factory
 
 ### Excluding paths & files
 
-To exclude a path or a file just pass the `--exclude` option
+Pass the `--exclude` option to exclude directories and files.
 
 ```
 $ php joomlaNamespaceChecker.phar --exclude=/somepath/,somefile.php,some/other/path/ path/to/your/project
