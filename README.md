@@ -3,8 +3,11 @@ For migrating to Joomla 3.8.x
 
 This script scans a directory recursively for PHP files containing calls to the old classes (e.g. JFactory).
 
+## Requirements
+* PHP 7.0
+
 ## Usage
-To run the script, download it and execute it using php
+Just download the phar file and run the following PHP command:
 ```
 $ php joomlaNamespaceChecker.phar path/to/your/project
 ```
