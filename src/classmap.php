@@ -1,5 +1,8 @@
 <?php
 
+// Source: https://github.com/joomla/joomla-cms/blob/staging/libraries/classmap.php
+// Last checked: 04-01-18
+
 function classmap()
 {
 	return [
@@ -9,7 +12,6 @@ function classmap()
 		'JRegistryFormatJson' => 'Joomla\Registry\Format\Json',
 		'JRegistryFormatPhp' => 'Joomla\Registry\Format\Php',
 		'JRegistryFormatXml' => 'Joomla\Registry\Format\Xml',
-		'JString' => 'Joomla\String\StringHelper',
 		'JStringInflector' => 'Joomla\String\Inflector',
 		'JStringNormalise' => 'Joomla\String\Normalise',
 		'JData' => 'Joomla\Data\DataObject',
@@ -367,6 +369,8 @@ function classmap()
 		'JObject' => 'Joomla\CMS\Object\CMSObject',
 		'JExtensionHelper' => 'Joomla\CMS\Extension\ExtensionHelper',
 		'JHtml' => 'Joomla\CMS\HTML\HTMLHelper',
+		// Below are classes not part of the source classmap
+		'JString' => 'Joomla\String\StringHelper',
 		'JEventDispatcher' => "Factory::getApplication()->triggerEvent('event', array(\$params))"
 	];
 }
