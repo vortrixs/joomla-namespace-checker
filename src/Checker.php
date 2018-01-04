@@ -220,7 +220,7 @@ class Checker
 	/**
 	 * Sort errors by line number
 	 *
-	 * @see scanForErrors()
+	 * @see buildMessages()
 	 *
 	 * @param   string   $a   Input a
 	 * @param   string   $b   Input b
