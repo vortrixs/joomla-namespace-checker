@@ -96,7 +96,7 @@ class Checker
 		{
 			foreach ($exclude as $exc)
 			{
-				if (false !== strpos($file[0], $exc))
+				if (empty($exc) || false !== strpos($file[0], $exc))
 				{
 					continue 2;
 				}
