@@ -12,9 +12,14 @@ require_once 'Checker.php';
  *
  * @var  $options  array
  */
- $opts = getopt('', ['exclude:']);
- 
- $paths = explode(',', $opts['exclude']);
+$opts = getopt('', ['exclude:']);
+
+$paths = [];
+
+if (!empty($opts))
+{
+	$paths = explode(',', $opts['exclude']);
+}
 
 /**
  * The folder to scan
