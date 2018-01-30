@@ -157,7 +157,7 @@ class Checker
 
 		foreach ($this->classmap as $class => $ns)
 		{
-			$regex = '#(?:\\?)\b' . $class . '\:{2}|(?:new|instanceof|extends|implements|use)\ (?:\\?)' . $class . '\b#i';
+			$regex = '#\b' . $class . '\:{2}|(?:new|instanceof|extends|implements|use)\ (?:\\\\?)' . $class . '\b#i';
 
 			preg_match_all($regex, $file, $matches, PREG_OFFSET_CAPTURE);
 
