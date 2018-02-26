@@ -1,7 +1,7 @@
 <?php
 
 // Source: https://github.com/joomla/joomla-cms/blob/staging/libraries/classmap.php
-// Last checked: 04-01-18
+// Last checked: 26-02-18
 
 function classmap()
 {
@@ -340,11 +340,11 @@ function classmap()
 		'JStringPunycode' => 'Joomla\CMS\String\PunycodeHelper',
 		'JBuffer' => 'Joomla\CMS\Utility\BufferStreamHandler',
 		'JUtility' => 'Joomla\CMS\Utility\Utility',
-		'JInputCli' => 'Joomla\CMS\Input\Cli',
-		'JInputCookie' => 'Joomla\CMS\Input\Cookie',
-		'JInputFiles' => 'Joomla\CMS\Input\Files',
-		'JInput' => 'Joomla\CMS\Input\Input',
-		'JInputJSON' => 'Joomla\CMS\Input\Json',
+		'JInputCli' => 'Joomla\Input\Cli',
+		'JInputCookie' => 'Joomla\Input\Cookie',
+		'JInputFiles' => 'Joomla\Input\Files',
+		'JInput' => 'Joomla\Input\Input',
+		'JInputJSON' => 'Joomla\Input\Json',
 		'JFeed' => 'Joomla\CMS\Feed\Feed',
 		'JFeedEntry' => 'Joomla\CMS\Feed\FeedEntry',
 		'JFeedFactory' => 'Joomla\CMS\Feed\FeedFactory',
