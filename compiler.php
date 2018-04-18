@@ -1,13 +1,13 @@
 <?php
 
-$pharFile = './joomlaNamespaceChecker.phar';
+$pharFile = './jnsc.phar';
 
 if (file_exists($pharFile))
 {
 	unlink($pharFile);
 }
 
-$phar = new Phar('joomlaNamespaceChecker.phar');
+$phar = new Phar('jnsc.phar');
 $phar->setSignatureAlgorithm(Phar::SHA1);
 
 $phar->startBuffering();

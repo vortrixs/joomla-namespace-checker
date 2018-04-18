@@ -1,4 +1,4 @@
-# Joomla Namespace Checker
+# Joomla Namespace Checker (JNSC)
 For migrating to Joomla 3.8.x
 
 This script scans a directory recursively for PHP files containing calls to the old classes (e.g. JFactory).
@@ -9,7 +9,7 @@ This script scans a directory recursively for PHP files containing calls to the 
 ## Usage
 Just download the phar file and run the following PHP command:
 ```
-$ php joomlaNamespaceChecker.phar path/to/your/project
+$ php jnsc.phar path/to/your/project
 ```
 
 If any calls are found you will get the following output:
@@ -30,7 +30,7 @@ Line: 84 | Class found: JFactory      | Replace with: Joomla\CMS\Factory
 Pass the `--exclude` option to exclude directories and files.
 
 ```
-$ php joomlaNamespaceChecker.phar --exclude=/somepath/,somefile.php,some/other/path/ path/to/your/project
+$ php jnsc.phar --exclude=/somepath/,somefile.php,some/other/path/ path/to/your/project
 ```
 
 The exclusion is very basic so you might have to tweak the paths a bit, this also means wildcards like * are *not* supported.
