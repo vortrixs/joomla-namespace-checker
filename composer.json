@@ -4,7 +4,7 @@
     "description": "Checks for correct namespace usage in Joomla projects",
     "keywords": ["joomla","namespace"],
     "homepage": "https://github.com/vortrixs/joomla-namespace-checker",
-    "license": "GPL",
+    "license": "MIT",
     "authors": [
         {
             "name": "Hans Erik Jepsen",
