@@ -4,7 +4,7 @@ For migrating to Joomla 3.8.x
 This script scans a directory recursively for PHP files containing calls to the old classes (e.g. JFactory).
 
 ## Requirements
-* PHP 7.0 or newer
+* PHP 7.x
 
 ## Usage
 
