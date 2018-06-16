@@ -3,6 +3,12 @@
 require_once 'classmap.php';
 require_once 'Checker.php';
 
+if (count($argv) <= 1)
+{
+	echo "Missing arguments. Remember to specify a file or directory." . PHP_EOL;
+	exit(1);
+}
+
 /**
  * Paths/files not to check
  *
@@ -41,11 +47,11 @@ try
 {
 	$checker->scan($folder);
 }
-catch (Error $e)
+catch (Throwable $e)
 {
-	echo str_repeat(PHP_EOL, 2);
-	echo $e->getMessage();
+	echo $e->getMessage() . PHP_EOL;
 	exit(1);
 }
 
+echo PHP_EOL;
 exit(0);
