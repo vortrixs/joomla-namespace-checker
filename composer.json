@@ -1,0 +1,20 @@
+{
+    "name": "vortrixs/joomla-namespace-checker",
+    "type": "library",
+    "description": "Checks for correct namespace usage in Joomla projects",
+    "keywords": ["joomla","namespace"],
+    "homepage": "https://github.com/vortrixs/joomla-namespace-checker",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Hans Erik Jepsen",
+            "email": "hanserikjepsen@hotmail.com",
+            "homepage": "http://he-jepsen.dk",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=7.0"
+    },
+    "bin": ["bin/jnsc"]
+}

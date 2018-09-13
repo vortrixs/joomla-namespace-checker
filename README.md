@@ -4,10 +4,31 @@ For migrating to Joomla 3.8.x
 This script scans a directory recursively for PHP files containing calls to the old classes (e.g. JFactory).
 
 ## Requirements
-* PHP 7.0
+* PHP 7.x
 
 ## Usage
-Just download the phar file and run the following PHP command:
+
+### Using Composer
+Add the package to your `composer.json`
+
+```
+composer require --dev vortrixs/joomla-namespace-checker
+```
+
+Afterwards you can run it using
+```
+vendor/bin/jnsc path/to/your/project/
+```
+This should work as long as PHP is in your `$PATH`.
+
+
+If this does not work you can always execute the PHAR directly
+```
+php vendor/vortrixs/joomla-namespace-checker/jnsc.phar
+```
+
+### Using the PHAR
+Download the PHAR from the [latest release](https://github.com/vortrixs/joomla-namespace-checker/releases) and run it like so
 ```
 $ php jnsc.phar path/to/your/project
 ```
