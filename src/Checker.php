@@ -13,7 +13,7 @@ class Checker
 	public $classmap;
 
 	/**
-	 * @var   string<string>
+	 * @var   array<string>
 	 */
 	private $indicators = ['progress' => '.', 'error' => 'E'];
 
@@ -157,7 +157,7 @@ class Checker
 
 		foreach ($this->classmap as $class => $ns)
 		{
-			$regex = '#\b' . $class . '\:{2}|(?:new|instanceof|extends|implements|use)\ (?:\\\\?)' . $class . '\b#i';
+			$regex = '#\b[^\$\\\(\W]?' . $class . '\b#';
 
 			preg_match_all($regex, $file, $matches, PREG_OFFSET_CAPTURE);
 
@@ -191,9 +191,9 @@ class Checker
 	{
 		usort($errors, [$this, 'sortErrorsByLine']);
 
-		$seperator = str_repeat('-', 85);
+		$seperator = str_repeat('-', 80);
 
-		$msg  = "FILE: \033[33m{$file}\033[0m" . PHP_EOL;
+		$msg  = "FILE: \033[96m{$file}\033[0m" . PHP_EOL;
 		$msg .= $seperator . PHP_EOL;
 
 		list($classLength, $lineLength) = $this->calcLenght($errors);
@@ -208,8 +208,8 @@ class Checker
 			$linePadding  = str_repeat(' ', $lineLength - strlen($line));
 
 			$msg .= "Line: {$line} {$linePadding}| ";
-			$msg .= "Class found: \033[33m{$class}\033[0m {$classPadding}| ";
-			$msg .= "Replace with: \033[32m{$replace}\033[0m" . PHP_EOL;
+			$msg .= "Class found: \033[96m{$class}\033[0m {$classPadding}| ";
+			$msg .= "Replace with: \033[92m{$replace}\033[0m" . PHP_EOL;
 		}
 
 		$msg .= $seperator;
