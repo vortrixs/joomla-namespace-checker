@@ -3,10 +3,9 @@
 require_once 'classmap.php';
 require_once 'Checker.php';
 
-if (count($argv) <= 1)
-{
-	echo "Missing arguments. Remember to specify a file or directory." . PHP_EOL;
-	exit(1);
+if (count($argv) <= 1) {
+    echo "Missing arguments. Remember to specify a file or directory." . PHP_EOL;
+    exit(1);
 }
 
 /**
@@ -22,9 +21,8 @@ $opts = getopt('', ['exclude:']);
 
 $paths = [];
 
-if (!empty($opts))
-{
-	$paths = explode(',', $opts['exclude']);
+if (!empty($opts)) {
+    $paths = explode(',', $opts['exclude']);
 }
 
 /**
@@ -41,16 +39,14 @@ $folder = end($argv);
  */
 $classmap = classmap();
 
-$checker = new Checker($paths, $classmap);
+$checker = new \JNSC\Checker($paths, $classmap);
 
-try
-{
-	$checker->scan($folder);
+try {
+    $checker->scan($folder);
 }
-catch (Throwable $e)
-{
-	echo $e->getMessage() . PHP_EOL;
-	exit(1);
+catch (\Throwable $e) {
+    echo PHP_EOL . PHP_EOL . $e->getMessage() . PHP_EOL;
+    exit(1);
 }
 
 echo PHP_EOL;
