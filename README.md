@@ -24,7 +24,7 @@ This should work as long as PHP is in your `$PATH`.
 
 If this does not work you can always execute the PHAR directly
 ```
-php vendor/vortrixs/joomla-namespace-checker/jnsc.phar
+php vendor/vortrixs/joomla-namespace-checker/bin/jnsc.phar
 ```
 
 ### Using the PHAR
