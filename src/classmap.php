@@ -423,6 +423,15 @@ function classmap()
         'JExtensionHelper'                  => 'Joomla\CMS\Extension\ExtensionHelper',
 
         'JHtml'                             => 'Joomla\CMS\HTML\HTMLHelper',
+
+        'JFile'                             => 'Joomla\CMS\Filesystem\File',
+        'JPath'                             => 'Joomla\CMS\Filesystem\Path',
+        'JFolder'                           => 'Joomla\CMS\Filesystem\Folder',
+        'JFilesystemHelper'                 => 'Joomla\CMS\Filesystem\FilestsystemHelper',
+        'JFilesystemPatcher'                => 'Joomla\CMS\Filesystem\FilestsystemPatcher',
+        'JStream'                           => 'Joomla\CMS\Filesystem\Stream',
+        'JArchive'                          => 'Joomla\Archive\Archive',
+
         // Below are classes not part of the source classmap
         'JString'                           => 'Joomla\String\StringHelper',
         'JEventDispatcher'                  => "Factory::getApplication()->triggerEvent('event', array(\$params))",
