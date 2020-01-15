@@ -22,6 +22,11 @@ class Checker
     /**
      * @var   array<string>
      */
+    public $update;
+
+    /**
+     * @var   array<string>
+     */
     private $indicators = ['progress' => '.', 'error' => 'E'];
 
     /**
@@ -35,10 +40,11 @@ class Checker
      * @param   array   $excludePaths   List of paths to exclude
      * @param   array   $classmap       A map of classes to be replaced and the replacements
      */
-    public function __construct(array $excludePaths, array $classmap)
+    public function __construct(array $excludePaths, array $classmap, bool $update)
     {
         $this->excludedPaths = $excludePaths;
         $this->classmap      = $classmap;
+        $this->update        = $update;
     }
 
     /**
@@ -139,6 +145,10 @@ class Checker
 
             echo $this->indicators['error'];
 
+            if ($this->update === true) {
+                $this->updateFile($file, $errors, $handler);
+            }
+
             $this->buildMessages($file, $errors);
         }
     }
@@ -176,6 +186,44 @@ class Checker
     }
 
     /**
+     * Update the file and fix the errors found, insert the use statements
+     *
+     * @param   string  $file     The file that the errors were found in
+     * @param   array   $errors   List of errors
+     *
+     * @return   void
+     */
+    private function updateFile(string $file, array $errors, string $handler)
+    {
+        $excludes = ['JEventDispatcher', 'JDispatcher', 'JRequest'];
+        /* Remove the line numbers */
+        foreach ($errors as $idx => $error) {
+            $errors[$idx] = substr($error, 0, strpos($error, "#"));
+        }
+        /* get unique values */
+        $errors = array_unique($errors);
+        $searches = $replaces = $uses = [];
+        
+        foreach ($errors as $class) {
+            if (in_array($class, $excludes)) {
+                continue;
+            }
+            $searches[] = $class;
+            $replaces[] = substr($this->classmap[$class], strrpos($this->classmap[$class],'\\')+1);
+            $uses[] = "use ".$this->classmap[$class].";";
+        }
+        $handler = str_replace($searches, $replaces, $handler);
+        
+        /* Insert a newline */
+        $handler = substr_replace($handler, "\n\n", strpos($handler, "<?php")+5, 0);
+        /* Now insert the uses */
+        $handler = substr_replace($handler, implode("\n", $uses)."\n", strpos($handler, "\n")+2, 0);
+        
+        /* Write back the file */
+        file_put_contents($file, $handler);
+    }
+
+    /**
      * Builds a visual presentation of the errors found
      *
      * @param   string  $file     The file that the errors were found in
@@ -184,7 +232,7 @@ class Checker
      * @return   void
      */
     private function buildMessages(string $file, array $errors)
-    {
+    { 
         usort($errors, [$this, 'sortErrorsByLine']);
 
         $separator = str_repeat('-', 80);

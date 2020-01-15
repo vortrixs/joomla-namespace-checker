@@ -17,11 +17,11 @@ if (count($argv) <= 1) {
  *
  * @var  $options  array
  */
-$opts = getopt('', ['exclude:']);
+$opts = getopt('u', ['exclude:']);
 
 $paths = [];
 
-if (!empty($opts)) {
+if (!empty($opts['exclude'])) {
     $paths = explode(',', $opts['exclude']);
 }
 
@@ -39,7 +39,7 @@ $folder = end($argv);
  */
 $classmap = classmap();
 
-$checker = new \JNSC\Checker($paths, $classmap);
+$checker = new \JNSC\Checker($paths, $classmap, array_key_exists('u', $opts));
 
 try {
     $checker->scan($folder);
