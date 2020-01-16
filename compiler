@@ -1,6 +1,5 @@
 #!/usr/bin/env php
 <?php
-ini_set("phar.readonly", "0");
 
 $pharFile = './jnsc.phar';
 
