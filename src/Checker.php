@@ -196,29 +196,67 @@ class Checker
     private function updateFile(string $file, array $errors, string $handler)
     {
         $excludes = ['JEventDispatcher', 'JDispatcher', 'JRequest'];
+        $fixes = [ 'HTMLHelperSidebar' => 'JHtmlSidebar', 'HTMLHelperBehavior' => 'JHtmlBehavior'];
         /* Remove the line numbers */
         foreach ($errors as $idx => $error) {
             $errors[$idx] = substr($error, 0, strpos($error, "#"));
         }
         /* get unique values */
         $errors = array_unique($errors);
-        $searches = $replaces = $uses = [];
-        
+        $searches = $uses = [];
+
+        /* JEvents specific mod - replace \JText with just JText */
+        $handler = str_replace('\\JText', 'JText', $handler);
+
         foreach ($errors as $class) {
             if (in_array($class, $excludes)) {
                 continue;
             }
-            $searches[] = $class;
-            $replaces[] = substr($this->classmap[$class], strrpos($this->classmap[$class],'\\')+1);
-            $uses[] = "use ".$this->classmap[$class].";";
+            $searches[$class] = substr($this->classmap[$class], strrpos($this->classmap[$class],'\\')+1);;
+            /* Check if this class is already defined in the file */
+            if (strpos($handler, $this->classmap[$class]) === false) {
+                $uses[] = "use ".$this->classmap[$class].";";
+            }
         }
-        $handler = str_replace($searches, $replaces, $handler);
-        
-        /* Insert a newline */
-        $handler = substr_replace($handler, "\n\n", strpos($handler, "<?php")+5, 0);
-        /* Now insert the uses */
-        $handler = substr_replace($handler, implode("\n", $uses)."\n", strpos($handler, "\n")+2, 0);
-        
+
+        if (count($searches) == 0) {
+            return;
+        }
+        /* Reverse sort the searches based on key (class), this is so JHtmlHandler will substitutue before JHtml */
+        krsort($searches);
+
+        $handler = str_replace(array_keys($searches), array_values($searches), $handler);
+        /* Fix and incorrect substitutions */
+       $handler = str_replace(array_keys($fixes), array_values($fixes), $handler);
+       $defined = ["\ndefined('_JEXEC')", "\ndefined( '_JEXEC", "\ndefined('JPATH", "\ndefined( 'JPATH"];
+         if (count($uses)) {
+            /* Determine position for use statements. */
+            do {
+                if (($pos = strpos($handler, "\nuse")) !== false) {
+                    // There are existing use statements, place the new ones after the extisting one
+                    $pos++; // leave the original nl in place
+                    break;
+                } 
+                foreach($defined as $define) {
+                    if (($pos = strpos($handler, $define)) !== false) {
+                        // Next best place is after the text for JEXEC or die
+                        $pos = strpos($handler, "\n", $pos+1) + 1;
+                       /* Insert a newline */
+                        $handler = substr_replace($handler, "\n", $pos, 0);
+                        $pos+=1;
+                        break 2;
+                    }
+                }
+                /* Otherwise after the opening php tag */
+                $pos = strpos($handler, "<?php") + 5;
+                /* Insert a newline */
+                $handler = substr_replace($handler, "\n\n", $pos, 0);
+                $pos+=2;
+            } while (0);
+            /* Now insert the uses */
+            $handler = substr_replace($handler, implode("\n", $uses)."\n", $pos, 0);
+        }
+
         /* Write back the file */
         file_put_contents($file, $handler);
     }

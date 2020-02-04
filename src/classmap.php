@@ -435,5 +435,6 @@ function classmap()
         // Below are classes not part of the source classmap
         'JString'                           => 'Joomla\String\StringHelper',
         'JEventDispatcher'                  => "Factory::getApplication()->triggerEvent('event', array(\$params))",
+	'JArrayHelper'				=> 'Joomla\Utilities\ArrayHelper',
     ];
 }
