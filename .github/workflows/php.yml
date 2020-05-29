@@ -1,0 +1,45 @@
+name: PHP Compiler Test
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Validate composer.json and composer.lock
+      run: composer validate
+      
+    - name: Cache Composer packages
+      id: composer-cache
+      uses: actions/cache@v2
+      with:
+        path: vendor
+        key: ${{ runner.os }}-node-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+
+    - name: Install dependencies
+      if: steps.composer-cache.outputs.cache-hit != 'true'
+      run: composer install --prefer-dist --no-progress --no-suggest
+
+    - name: Compile PHAR
+      run: |
+        rm -rf ./bin
+        mkdir bin
+        php ini_set phar.readonly
+        php ./compiler
+        
+    - name: Test PHAR
+      run: |
+        wget https://github.com/joomla/joomla-cms/releases/download/3.7.0/Joomla_3.7.0-Stable-Full_Package.zip
+        mkdir test
+        unzip Joomla_3.7.0-Stable-Full_Package.zip -d ./test
+        php ./bin/jnsc.phar ./test
