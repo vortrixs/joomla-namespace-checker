@@ -34,8 +34,7 @@ jobs:
       run: |
         rm -rf ./bin
         mkdir bin
-        php ini_set phar.readonly 0
-        php ./compiler
+        php -d phar.readonly=0 ./compiler
         
     - name: Test PHAR
       run: |
