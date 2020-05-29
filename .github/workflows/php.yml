@@ -42,7 +42,7 @@ jobs:
         mkdir test
         unzip -q Joomla_3.7.0-Stable-Full_Package.zip -d ./test
         code=$(php ./bin/jnsc.phar ./test)
-        echo $code
+        echo "$code"
        
 #        if [ $code -eq 0 ]
 #        then
