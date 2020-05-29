@@ -3,6 +3,12 @@ For migrating to Joomla 3.8.x
 
 This script scans a directory recursively for PHP files containing calls to the old classes (e.g. JFactory).
 
+**DISCLAIMER:** Keep in mind that the results from this tool are only suggestions and that these changes are *NOT* required for your application to work until Joomla 5 is released. Thanks to @anibalsanchez for pointing this out ([#6](/../../issues/6)).
+
+As a side note you can always find the full definition for the new class names in [Joomlas own repository](https://github.com/joomla/joomla-cms/blob/staging/libraries/classmap.php).
+
+**Note:** I'm not actively supporting this repository at the moment as I'm working with Joomla anymore, but do feel free to submit PRs if you have made any changes or found any bugs.
+
 ## Requirements
 * PHP 7.x
 
