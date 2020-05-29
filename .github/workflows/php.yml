@@ -46,15 +46,18 @@ jobs:
     - if: ${{ failure() }}
       run: |
         code=$?
-        if [ $code -eq 0 ]
-        then
-          exit 1
-        elif [ $code -eq 1 ]
-        then
-          exit 0
-        else
-          echo $code
-        fi
+        
+        echo "$code"
+        
+#        if [ $code -eq 0 ]
+#        then
+#          exit 1
+#        elif [ $code -eq 1 ]
+#        then
+#          exit 0
+#        else
+#          echo $code
+#        fi
         
 #    - if: ${{ success() }}
 #      uses: actions/upload-artifact@v2
