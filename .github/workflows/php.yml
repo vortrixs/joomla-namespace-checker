@@ -41,12 +41,16 @@ jobs:
         wget -q https://github.com/joomla/joomla-cms/releases/download/3.7.0/Joomla_3.7.0-Stable-Full_Package.zip
         mkdir test
         unzip -q Joomla_3.7.0-Stable-Full_Package.zip -d ./test
-        code=$(php ./bin/jnsc.phar ./test)
+        (php ./bin/jnsc.phar ./test)
+        code=$?
         if [ $code -eq 0 ]
         then
           exit 1
-        else
+        elif [ $code -eq 1 ]
+        then
           exit 0
+        else
+          echo $code
         fi
         
 #    - if: ${{ success() }}
