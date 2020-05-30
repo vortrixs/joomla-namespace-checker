@@ -48,8 +48,3 @@ jobs:
             1) exit 0;;
             *) exit $EXIT_CODE;;
         esac
-
-#    - name: Upload Compiled PHAR
-#      uses: actions/upload-artifact@v2
-#      with:
-#        path: ./bin/jnsc.phar
