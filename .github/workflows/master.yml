@@ -1,7 +1,7 @@
-name: PHP Compiler Test
+name: Compile PHAR for release
 
 on:
-  pull_request:
+  push:
     branches: [ master ]
 
 jobs:
@@ -34,15 +34,7 @@ jobs:
         mkdir bin
         php -d phar.readonly=0 ./compiler
 
-    - name: Test PHAR
-      run: |
-        wget -q https://github.com/joomla/joomla-cms/releases/download/3.7.0/Joomla_3.7.0-Stable-Full_Package.zip
-        mkdir test
-        unzip -q Joomla_3.7.0-Stable-Full_Package.zip -d ./test
-        EXIT_CODE=0
-        (php ./bin/jnsc.phar ./test) || EXIT_CODE=$?
-        case $EXIT_CODE in
-            0) exit 1;;
-            1) exit 0;;
-            *) exit $EXIT_CODE;;
-        esac
+    - name: Upload Compiled PHAR
+      uses: actions/upload-artifact@v2
+      with:
+        path: ./bin/jnsc.phar
