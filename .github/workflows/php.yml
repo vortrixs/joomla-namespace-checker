@@ -55,8 +55,9 @@ jobs:
           echo "else"
           #exit $EXIT_CODE
         fi
+        echo $EXIT_CODE
 
-    - name: Upload Compiled PHAR
-      uses: actions/upload-artifact@v2
-      with:
-        path: ./bin/jnsc.phar
+#    - name: Upload Compiled PHAR
+#      uses: actions/upload-artifact@v2
+#      with:
+#        path: ./bin/jnsc.phar
