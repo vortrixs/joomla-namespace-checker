@@ -45,12 +45,15 @@ jobs:
         (php ./bin/jnsc.phar ./test) || EXIT_CODE=$?
         if [$EXIT_CODE -eq 1]
         then
-          exit 0
+          echo "if"
+          #exit 0
         elif [$EXIT_CODE -eq 0]
         then
-          exit 1
+          echo "else if"
+          #exit 1
         else
-          exit $EXIT_CODE
+          echo "else"
+          #exit $EXIT_CODE
         fi
 
     - name: Upload Compiled PHAR
