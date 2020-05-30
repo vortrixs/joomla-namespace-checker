@@ -43,19 +43,11 @@ jobs:
         unzip -q Joomla_3.7.0-Stable-Full_Package.zip -d ./test
         EXIT_CODE=0
         (php ./bin/jnsc.phar ./test) || EXIT_CODE=$?
-        if ["$EXIT_CODE" -eq "1"]
-        then
-          echo "if"
-          #exit 0
-        elif ["$EXIT_CODE" -eq "0"]
-        then
-          echo "else if"
-          #exit 1
-        else
-          echo "else"
-          #exit $EXIT_CODE
-        fi
-        echo $EXIT_CODE
+        case $EXIT_CODE in
+            0) exit 1;;
+            1) exit 0;;
+            *) exit $EXIT_CODE;;
+        esac
 
 #    - name: Upload Compiled PHAR
 #      uses: actions/upload-artifact@v2
