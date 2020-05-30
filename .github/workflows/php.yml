@@ -38,9 +38,22 @@ jobs:
 
     - name: Test PHAR
       run: |
-        wget https://github.com/joomla/joomla-cms/releases/download/3.7.0/Joomla_3.7.0-Stable-Full_Package.zip
+        wget -q https://github.com/joomla/joomla-cms/releases/download/3.7.0/Joomla_3.7.0-Stable-Full_Package.zip
         mkdir test
-        unzip Joomla_3.7.0-Stable-Full_Package.zip -d ./test
+        unzip -q Joomla_3.7.0-Stable-Full_Package.zip -d ./test
         EXIT_CODE=0
         (php ./bin/jnsc.phar ./test) || EXIT_CODE=$?
-        echo $EXIT_CODE
+        if [$EXIT_CODE -eq 1]
+        then
+          exit 0
+        elif [$EXIT_CODE -eq 0]
+        then
+          exit 1
+        else
+          exit $EXIT_CODE
+        fi
+
+    - name: Upload Compiled PHAR
+      uses: actions/upload-artifact@v2
+      with:
+        path: ./bin/jnsc.phar
