@@ -166,6 +166,7 @@ function classmap()
         'JToolbarButtonSeparator'           => 'Joomla\CMS\Toolbar\Button\SeparatorButton',
         'JToolbarButtonSlider'              => 'Joomla\CMS\Toolbar\Button\SliderButton',
         'JToolbarButtonStandard'            => 'Joomla\CMS\Toolbar\Button\StandardButton',
+        'JToolbarHelper'                    => 'Joomla\CMS\Toolbar\ToolbarHelper',
         'JButton'                           => 'Joomla\CMS\Toolbar\ToolbarButton',
 
         'JVersion'                          => 'Joomla\CMS\Version',
