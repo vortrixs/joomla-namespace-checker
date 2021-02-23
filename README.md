@@ -7,7 +7,7 @@ This script scans a directory recursively for PHP files containing calls to the 
 
 As a side note you can always find the full definition for the new class names in [Joomlas own repository](https://github.com/joomla/joomla-cms/blob/staging/libraries/classmap.php).
 
-**Note:** I'm not actively supporting this repository at the moment as I'm working with Joomla anymore, but do feel free to submit PRs if you have made any changes or found any bugs.
+**Note:** I'm not actively supporting this repository at the moment as I'm not working with Joomla anymore, but do feel free to submit PRs if you have any changes or found any bugs.
 
 ## Requirements
 * PHP 7.x
