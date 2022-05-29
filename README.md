@@ -65,3 +65,7 @@ The exclusion is very basic so you might have to tweak the paths a bit, this als
 e.g. if you pass `--exclude=google`, it will filter out anything that has `google` in it's path or filename.
 
 To reliably filter out a whole directory wrap it in `/ /` and for single files use `filename.ext`.
+
+### Automatically update files after scan
+
+With the -u option on the command line, the classnames are replaced in the file, use statements are inserted immediately after the <?php tag, and the file is rewritten with the changes. **JEventDispatcher**, **JDispatcher** and **JRequest** calls will be excluded from fix list and should be fixed manually according to suggestions. 
